@@ -27,6 +27,11 @@ namespace CA1HorseSystemJeremiah
         }
         private void ManagerControl_Load(object sender, EventArgs e)
         {
+            disableFeatures();
+        }
+
+        public void disableFeatures()
+        {
             addEventButton.Enabled = false;
             addRaceButton.Enabled = false;
             raceNameTextBox.Enabled = false;
@@ -43,6 +48,7 @@ namespace CA1HorseSystemJeremiah
                 hoursUpDown.Enabled = true;
                 minutesUpDown.Enabled = true;
                 eventClicked = true;
+                horseListBox.Items.Clear();
                 raceListBox_SelectedIndexChanged(sender, e);
             }
             else
@@ -70,6 +76,17 @@ namespace CA1HorseSystemJeremiah
 
                 eventClicked = false;
             }
+
+            Race r = (Race)raceListBox.SelectedItem;
+
+            if (r != null)
+            {
+                horseListBox.Items.Clear();
+                foreach (Horse horse in r.Horses)
+                {
+                    horseListBox.Items.Add(horse);
+                }
+            }
         }
 
         private void horseListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -84,6 +101,7 @@ namespace CA1HorseSystemJeremiah
 
             Event event1 = new Event(eventName, eventLocation);
 
+            Globals.events.Add(event1);
             eventListBox.Items.Add(event1);
 
             eventNameTextBox.Text = null;
@@ -152,6 +170,8 @@ namespace CA1HorseSystemJeremiah
             int index = eventListBox.SelectedIndex;
             Event event1 = (Event)eventListBox.SelectedItem;
             Race race = new Race(raceName, hours, minutes);
+
+            race.Horses.Add(new Horse("JUAN", DateTime.Now));
 
             event1.Races.Add(race);
             eventListBox.Items[index] = event1;

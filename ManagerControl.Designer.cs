@@ -284,8 +284,9 @@
 
         #endregion
 
-        private ListBox eventListBox;
-        private ListBox raceListBox;
+        public ListBox eventListBox;
+        public ListBox raceListBox;
+        public ListBox horseListBox;
         private Button addEventButton;
         private Button addRaceButton;
         private Label label1;
@@ -303,6 +304,5 @@
         private Label label7;
         private Label label8;
         private Label label9;
-        private ListBox horseListBox;
     }
 }
