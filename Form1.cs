@@ -28,6 +28,5 @@ namespace CA1HorseSystemJeremiah
             ownerControl1.Show();
             managerControl1.Hide();
         }
-
     }
 }
