@@ -208,6 +208,7 @@
             this.uploadButton.TabIndex = 15;
             this.uploadButton.Text = "upload horse list (JSON)";
             this.uploadButton.UseVisualStyleBackColor = true;
+            this.uploadButton.Click += new System.EventHandler(this.uploadButton_Click);
             // 
             // label7
             // 

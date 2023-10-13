@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.Reflection;
 
 namespace CA1HorseSystemJeremiah
 {
@@ -37,6 +40,7 @@ namespace CA1HorseSystemJeremiah
             raceNameTextBox.Enabled = false;
             hoursUpDown.Enabled = false;
             minutesUpDown.Enabled = false;
+            uploadButton.Enabled = false;
         }
 
         private void eventListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,7 +67,6 @@ namespace CA1HorseSystemJeremiah
 
         private void raceListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //raceListBox.Items.Clear();
             Event event1 = (Event)eventListBox.SelectedItem;
             
             if (event1 != null && eventClicked)
@@ -81,6 +84,7 @@ namespace CA1HorseSystemJeremiah
 
             if (r != null)
             {
+                uploadButton.Enabled = true;
                 horseListBox.Items.Clear();
                 foreach (Horse horse in r.Horses)
                 {
@@ -171,7 +175,7 @@ namespace CA1HorseSystemJeremiah
             Event event1 = (Event)eventListBox.SelectedItem;
             Race race = new Race(raceName, hours, minutes);
 
-            race.Horses.Add(new Horse("JUAN", DateTime.Now));
+            //race.Horses.Add(new Horse("JUAN", DateTime.Now));
 
             event1.Races.Add(race);
             eventListBox.Items[index] = event1;
@@ -210,5 +214,48 @@ namespace CA1HorseSystemJeremiah
             }
         }
 
+        private void uploadButton_Click(object sender, EventArgs e)
+        {
+            Race r = (Race)raceListBox.SelectedItem;
+            int index = raceListBox.SelectedIndex;
+
+            if (r != null)
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    //openFileDialog.InitialDirectory = selectedFolder;
+                    openFileDialog.Filter = "JSON Files (*.json)|*.json";
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string selectedFilePath = openFileDialog.FileName;
+
+                        if (!string.IsNullOrEmpty(selectedFilePath))
+                        {
+                            try
+                            {
+                                string jsonContent = File.ReadAllText(selectedFilePath);
+                                List<Horse> horses = JsonConvert.DeserializeObject<List<Horse>>(jsonContent);
+                                
+                                
+
+                                // Now you have the JSON data deserialized into a list of Horse objects
+                                foreach (Horse horse in horses)
+                                {
+                                    //Debug.WriteLine(horse.HorseName);
+                                    //Debug.WriteLine(horse);
+                                    r.Horses.Add(horse);
+                                    raceListBox.Items[index] = r;
+                                }
+                            }
+                            catch (Exception se)
+                            {
+                                Console.WriteLine($"Error reading JSON file: {se.Message}");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
