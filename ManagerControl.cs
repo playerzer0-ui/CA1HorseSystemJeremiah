@@ -233,14 +233,13 @@ namespace CA1HorseSystemJeremiah
 
                         if (!string.IsNullOrEmpty(selectedFilePath))
                         {
+                            // use json and looping process
                             try
                             {
                                 string jsonContent = File.ReadAllText(selectedFilePath);
                                 List<Horse> horses = JsonConvert.DeserializeObject<List<Horse>>(jsonContent);
                                 
                                 
-
-                                // Now you have the JSON data deserialized into a list of Horse objects
                                 foreach (Horse horse in horses)
                                 {
                                     if(horse.HorseName == null || horse.DoB == null)
