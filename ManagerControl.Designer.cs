@@ -48,6 +48,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.horseListBox = new System.Windows.Forms.ListBox();
+            this.errorLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.hoursUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minutesUpDown)).BeginInit();
             this.SuspendLayout();
@@ -249,10 +250,19 @@
             this.horseListBox.TabIndex = 18;
             this.horseListBox.SelectedIndexChanged += new System.EventHandler(this.horseListBox_SelectedIndexChanged);
             // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.Location = new System.Drawing.Point(758, 421);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(0, 20);
+            this.errorLabel.TabIndex = 20;
+            // 
             // ManagerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.horseListBox);
             this.Controls.Add(this.label8);
@@ -305,5 +315,6 @@
         private Label label7;
         private Label label8;
         private Label label9;
+        private Label errorLabel;
     }
 }

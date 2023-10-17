@@ -218,6 +218,7 @@ namespace CA1HorseSystemJeremiah
         {
             Race r = (Race)raceListBox.SelectedItem;
             int index = raceListBox.SelectedIndex;
+            int count = 1;
 
             if (r != null)
             {
@@ -242,15 +243,23 @@ namespace CA1HorseSystemJeremiah
                                 // Now you have the JSON data deserialized into a list of Horse objects
                                 foreach (Horse horse in horses)
                                 {
-                                    //Debug.WriteLine(horse.HorseName);
-                                    //Debug.WriteLine(horse);
-                                    r.Horses.Add(horse);
-                                    raceListBox.Items[index] = r;
+                                    if(horse.HorseName == null || horse.DoB == null)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        Horse h = new Horse(horse.HorseName, horse.DoB);
+                                        h.HorseID = count++;
+                                        Horse.CountID = count;
+                                        r.Horses.Add(h);
+                                        raceListBox.Items[index] = r;
+                                    }
                                 }
                             }
                             catch (Exception se)
                             {
-                                Console.WriteLine($"Error reading JSON file: {se.Message}");
+                                errorLabel.Text = $"Error reading JSON file: \n {se.Message}";
                             }
                         }
                     }
