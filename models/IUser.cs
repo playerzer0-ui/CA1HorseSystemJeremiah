@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace CA1HorseSystemJeremiah.models
 {
-    public enum UserType
+    public interface IUser
     {
-        Manager,
-        Owner,
-        Goer
-    }
-    public class Globals
-    {
-        public static List<Event> events = new List<Event>();
+        public string viewProfile();
+
     }
 }
